@@ -1,0 +1,28 @@
+package org.freedu.basicroomdbb7
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import org.freedu.basicroomdbb7.databinding.ItemNoteBinding
+
+class NoteAdapter(private val list: List<Note>) : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
+
+    inner class ViewHolder(val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
+        val binding = ItemNoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val note = list[position]
+
+        holder.binding.name.text = note.name
+        holder.binding.address.text = note.address
+    }
+
+    override fun getItemCount(): Int = list.size
+
+
+}
