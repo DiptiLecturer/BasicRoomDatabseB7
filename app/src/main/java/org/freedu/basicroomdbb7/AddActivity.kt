@@ -13,6 +13,8 @@ class AddActivity : AppCompatActivity() {
 
     private lateinit var db: AppDatabase
 
+    private var noteid = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,18 +30,31 @@ class AddActivity : AppCompatActivity() {
         //getDatabase function called
         db = AppDatabase.getDatabase(this)
 
-        binding.button.setOnClickListener {
+        noteid =intent.getIntExtra("id",-1)
 
+        if (noteid!=-1){
+
+            binding.nameET.setText(intent.getStringExtra("name"))
+            binding.addressET.setText(intent.getStringExtra("address"))
+
+
+        }
+
+        binding.button.setOnClickListener {
             val name = binding.nameET.text.toString()
             val address = binding.addressET.text.toString()
 
-            val notes = Note(name = name, address = address)
+            if (noteid== -1){
+                //insert
+                val note = Note(name = name, address = address)
+                db.noteDao().insert(note)
 
-
-            db.noteDao().insert(notes)
-
+            }else{
+                //Update
+                val note =Note(id = noteid, name = name, address = address)
+                db.noteDao().update(note)
+            }
             Toast.makeText(this@AddActivity, "data saved successfully", Toast.LENGTH_SHORT).show()
-
             finish()
 
 

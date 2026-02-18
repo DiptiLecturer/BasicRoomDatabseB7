@@ -27,4 +27,32 @@
         android:textAlignment="textEnd"
         android:textColor="@color/black"
         android:textSize="18sp" />
+    <LinearLayout
+        android:padding="8dp"
+        android:weightSum="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_weight=".5"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/black"
+            android:id="@+id/editBtn"
+            android:layout_marginHorizontal="10dp"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="edit"/>
+        <Button
+            android:textColor="@color/white"
+            android:backgroundTint="@color/black"
+            android:id="@+id/deleteBtn"
+            android:textSize="18sp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight=".5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="delete"/>
+
+    </LinearLayout>
 </LinearLayout>

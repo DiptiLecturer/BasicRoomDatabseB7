@@ -5,7 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.freedu.basicroomdbb7.databinding.ItemNoteBinding
 
-class NoteAdapter(private val list: List<Note>) : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
+class NoteAdapter(
+    private val list: List<Note>,
+    private val onEdit:(Note)-> Unit,
+    private val onDelete:(Note)-> Unit,
+
+) : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -20,6 +25,15 @@ class NoteAdapter(private val list: List<Note>) : RecyclerView.Adapter<NoteAdapt
 
         holder.binding.name.text = note.name
         holder.binding.address.text = note.address
+
+        holder.binding.editBtn.setOnClickListener {
+            onEdit(note)
+        }
+        holder.binding.deleteBtn.setOnClickListener {
+            onDelete(note)
+        }
+
+
     }
 
     override fun getItemCount(): Int = list.size

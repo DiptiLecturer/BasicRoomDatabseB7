@@ -43,7 +43,24 @@ class HomeActivity : AppCompatActivity() {
 
         val list = db.noteDao().getAllNotes()
 
-        val adapter = NoteAdapter(list)
+        val adapter = NoteAdapter(
+            list,
+
+            onEdit = { note ->
+                val intent = Intent(this@HomeActivity, AddActivity::class.java)
+
+                intent.putExtra("id",note.id)
+                intent.putExtra("name",note.name)
+                intent.putExtra("address",note.address)
+                startActivity(intent)
+
+            },
+            onDelete = {note ->
+                db.noteDao().delete(note)
+                loadData()
+
+            }
+            )
 
         binding.recyclerView.adapter = adapter
 
