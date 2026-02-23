@@ -25,6 +25,7 @@ class NoteAdapter(
 
         holder.binding.name.text = note.name
         holder.binding.address.text = note.address
+        holder.binding.phone.text =note.phone
 
         holder.binding.editBtn.setOnClickListener {
             onEdit(note)

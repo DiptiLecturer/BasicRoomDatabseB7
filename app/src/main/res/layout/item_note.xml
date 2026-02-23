@@ -27,6 +27,16 @@
         android:textAlignment="textEnd"
         android:textColor="@color/black"
         android:textSize="18sp" />
+    <TextView
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:padding="8dp"
+        android:text="Phone"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
     <LinearLayout
         android:padding="8dp"
         android:weightSum="1"

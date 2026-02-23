@@ -11,5 +11,6 @@ data class Note(
     val id :Int =0,
     //field
     val name : String,
-    val address: String
+    val address: String,
+    val phone: String
 )

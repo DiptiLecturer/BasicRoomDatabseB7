@@ -36,6 +36,7 @@ class AddActivity : AppCompatActivity() {
 
             binding.nameET.setText(intent.getStringExtra("name"))
             binding.addressET.setText(intent.getStringExtra("address"))
+            binding.phoneET.setText(intent.getStringExtra("phone"))
 
 
         }
@@ -43,15 +44,16 @@ class AddActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             val name = binding.nameET.text.toString()
             val address = binding.addressET.text.toString()
+            val phone =binding.phoneET.text.toString()
 
             if (noteid== -1){
                 //insert
-                val note = Note(name = name, address = address)
+                val note = Note(name = name, address = address, phone = phone)
                 db.noteDao().insert(note)
 
             }else{
                 //Update
-                val note =Note(id = noteid, name = name, address = address)
+                val note =Note(id = noteid, name = name, address = address, phone = phone)
                 db.noteDao().update(note)
             }
             Toast.makeText(this@AddActivity, "data saved successfully", Toast.LENGTH_SHORT).show()
