@@ -6,12 +6,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import org.freedu.basicroomdbb7.databinding.ActivityAddBinding
 
 class AddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBinding
 
-    private lateinit var db: AppDatabase
+    private lateinit var viewModel: NoteViewModel
 
     private var noteid = -1
 
@@ -27,8 +28,8 @@ class AddActivity : AppCompatActivity() {
             insets
         }
 
-        //getDatabase function called
-        db = AppDatabase.getDatabase(this)
+        viewModel = ViewModelProvider(this)[NoteViewModel::class.java]
+
 
         noteid =intent.getIntExtra("id",-1)
 
@@ -48,13 +49,15 @@ class AddActivity : AppCompatActivity() {
 
             if (noteid== -1){
                 //insert
-                val note = Note(name = name, address = address, phone = phone)
-                db.noteDao().insert(note)
+              viewModel.insertFromViewModel(
+                  Note(name = name, address = address, phone = phone)
+              )
 
             }else{
                 //Update
-                val note =Note(id = noteid, name = name, address = address, phone = phone)
-                db.noteDao().update(note)
+                viewModel.updateFromViewModel(
+                    Note(id = noteid, name = name, address = address, phone = phone)
+                )
             }
             Toast.makeText(this@AddActivity, "data saved successfully", Toast.LENGTH_SHORT).show()
             finish()
