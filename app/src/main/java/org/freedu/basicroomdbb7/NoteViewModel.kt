@@ -3,6 +3,10 @@ package org.freedu.basicroomdbb7
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -18,21 +22,44 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
     }
 
      fun loadNotesFromViewModel() {
-        notesLiveData.value = repository.getAllNotesFromRepo()
+       viewModelScope.launch(Dispatchers.IO) {
+           val notes =repository.getAllNotesFromRepo()
+           withContext(Dispatchers.Main){
+               notesLiveData.value=notes
+           }
+       }
     }
 
     fun insertFromViewModel(note: Note){
-        repository.insert(note)
-        loadNotesFromViewModel()
+        viewModelScope.launch(Dispatchers.IO){
+            repository.insert(note)
+            loadNotesFromViewModel()
+        }
+
     }
     fun updateFromViewModel(note: Note){
-        repository.update(note)
-        loadNotesFromViewModel()
+       viewModelScope.launch(Dispatchers.IO) {
+           repository.update(note)
+           loadNotesFromViewModel()
+       }
+
     }
     fun deleteFromViewModel(note: Note){
-        repository.delete(note)
-        loadNotesFromViewModel()
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.delete(note)
+            loadNotesFromViewModel()
+        }
     }
+    fun searchFromViewModel(query: String){
+        viewModelScope.launch(Dispatchers.IO){
+            val result = repository.searchNotesFromRepo(query)
+            withContext(Dispatchers.Main){
+                notesLiveData.value=result
+            }
+        }
+
+    }
+
 
 
 

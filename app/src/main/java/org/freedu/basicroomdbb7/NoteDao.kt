@@ -10,18 +10,19 @@ import androidx.room.Update
 interface NoteDao {
 
     @Insert//to insert data in the table
-    fun insert(note:Note)
+   suspend fun insert(note:Note)
 
     @Update//to Update data in the table
-    fun update(note: Note)
+    suspend fun update(note: Note)
 
     @Delete//to delete data in the table
-    fun delete(note: Note)
+    suspend fun delete(note: Note)
 
     //to get data from the table-> select all from table
     @Query("SELECT * FROM notes")
-    fun getAllNotes(): List<Note>
+    suspend fun getAllNotes(): List<Note>
 
-
+    @Query("SELECT * from notes where name like '%' || :query || '%'")
+    suspend fun searchNotes(query: String): List<Note>
 
 }

@@ -11,7 +11,6 @@ import org.freedu.basicroomdbb7.databinding.ActivityAddBinding
 
 class AddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBinding
-
     private lateinit var viewModel: NoteViewModel
 
     private var noteid = -1
@@ -61,6 +60,7 @@ class AddActivity : AppCompatActivity() {
             }
             Toast.makeText(this@AddActivity, "data saved successfully", Toast.LENGTH_SHORT).show()
             finish()
+
 
 
         }
